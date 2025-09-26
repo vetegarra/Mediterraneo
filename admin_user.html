@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administración de Usuarios</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container py-4">
+
+  <!--Row principal-->
+  <div class="row g-4">
+
+    <!--Columna formulario de usuario-->
+    <div class="col-md-6">
+      <div class="card h-100">
+        <div class="card-body d-flex flex-column">
+          <h3 class="card-title mb-3">Agregar / Modificar Usuario</h3>
+          <!--Entradas-->
+          <input type="email" class="form-control mb-2" placeholder="Correo electrónico">
+          <input type="text" class="form-control mb-2" placeholder="Rol (Administrador / Usuario)">
+          <input type="password" class="form-control mb-3" placeholder="Contraseña">
+          <div class="d-flex gap-2">
+            <button class="btn btn-primary flex-grow-1">Agregar / Guardar</button>
+            <button class="btn btn-danger flex-grow-1">Eliminar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Columna listdo de usuarios y mensajes-->
+    <div class="col-md-6 d-flex flex-column">
+      <div class="card h-100">
+        <div class="card-body d-flex flex-column">
+          <h3 class="card-title mb-3">Usuarios Registrados</h3>
+          <!--Listado de usuarios-->
+          <div class="list-group flex-grow-1 mb-3">
+            <div class="list-group-item d-flex justify-content-between align-items-center">
+              juanperez@example.com
+              <span class="badge bg-secondary">Administrador</span>
+            </div>
+            <div class="list-group-item d-flex justify-content-between align-items-center">
+              mariarodriguez@example.com
+              <span class="badge bg-secondary">Usuario</span>
+            </div>
+          </div>
+          <!--Mensajes de confirmacion-->
+          <div class="alert alert-success d-none" role="alert">
+            Usuario creado exitosamente.
+          </div>
+          <div class="alert alert-info d-none" role="alert">
+            Usuario actualizado.
+          </div>
+          <div class="alert alert-danger d-none" role="alert">
+            Usuario eliminado.
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

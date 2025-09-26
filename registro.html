@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro de usuario</title>
+  <style>
+    .container {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      min-height: 100vh;
+    }
+    header, main, footer {
+      padding: 1rem;
+      border: 1px solid #ccc;
+    }
+    .form-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    .form-col {
+      flex: 1 1 300px;
+      max-width: 400px;
+      padding: 1rem;
+      border: 1px dashed #999;
+    }
+    @media(min-width:768px){
+      .form-col {
+        margin: 0 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+
+      <h1>Mediterraneo</h1>
+    </header>
+
+    <main>
+      <div class="form-row">
+        <div class="form-col">
+          <!-- Formulario de registro-->
+          <form>
+            <h2>Registro de usuario</h2>
+
+            <div class="row">
+              <div class="col">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="ana@example.com">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col">
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" name="password" placeholder="********">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col">
+                <button type="submit">Registrar</button>
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <!--Footer-->
+      <p>@2025 Mediterraneo</p>
+    </footer>
+  </div>
+
+</body>
+</html>
