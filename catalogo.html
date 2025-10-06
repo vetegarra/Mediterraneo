@@ -1,35 +1,63 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mediterraneo – Catálogo de productos</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mediterraneo – Catálogo de productos</title>
 
-  <!--Bootstrap 5-->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        main {
+            flex: 1; /* Hace que el contenido empuje el footer */
+        }
+        /* Estilo para hacer el título interactivo como un enlace */
+        .card-title-link {
+            cursor: pointer;
+            color: var(--bs-primary); /* Color de enlace primario de Bootstrap */
+            transition: color 0.15s ease-in-out;
+        }
+        .card-title-link:hover {
+            color: var(--bs-primary);
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-  <!--Navbar-->
+
+<!--Navbar-->
   <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="index.html">𝙼𝚎𝚍𝚒𝚝𝚎𝚛𝚛𝚊𝚗𝚎𝚘</a>
+      <a class="navbar-brand" href="inicio.html">𝙼𝚎𝚍𝚒𝚝𝚎𝚛𝚛𝚊𝚗𝚎𝚘</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
-          <li class="nav-item"><a class="nav-link" href="#">Inicio</a></li>
-          <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Catálogo</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Pide ahora!</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Acerca de nosotros</a></li>
+          <li class="nav-item"><a class="nav-link active" aria-current="page" href="catalogo.html">Catálogo</a></li>
+          <li class="nav-item"><a class="nav-link" href="sobre_nosotros.html">Acerca de nosotros</a></li>
         </ul>
         <ul class="navbar-nav ms-auto">
+          <li class="nav-item me-3"> 
+            <a class="nav-link" href="pedido_online.html" title="Ver Pedido">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+                <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.485-.379L1.71 5.438a.5.5 0 0 1-.485-.379L.105 1.562A.5.5 0 0 1 0 1.5zm1.115 3.5h12.77L13 5H3.19zM4 14a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm10 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+              </svg>
+            </a>
+          </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Tu cuenta</a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="login.html">Iniciar sesión</a></li>
-              <li><a class="dropdown-item" href="#">Regístrate</a></li>
+              <li><a class="dropdown-item" href="inicio_sesion.html">Iniciar sesión</a></li>
+              <li><a class="dropdown-item" href="registro.html">Regístrate</a></li>
             </ul>
           </li>
         </ul>
@@ -37,75 +65,245 @@
     </div>
   </nav>
 
-  <!--Filtros y búsqueda-->
-  <section class="container my-4">
-    <div class="row g-2 align-items-center">
-      <div class="col-12 col-md-6">
-        <input type="text" class="form-control" placeholder="Buscar producto…">
-      </div>
-      <div class="col-8 col-md-4">
-        <select class="form-select">
-          <option selected>Todos los tipos</option>
-          <option value="omnivoro">Omnívoro</option>
-          <option value="pescetariano">Pescetariano</option>
-          <option value="vegetariano">Vegetariano</option>
-        </select>
-      </div>
-      <div class="col-4 col-md-2 d-grid">
-        <button class="btn btn-primary">Filtrar</button>
-      </div>
-    </div>
-  </section>
+    <section class="container my-4">
+        <div class="row g-2 align-items-center">
+            <div class="col-12 col-md-6">
+                <input type="text" class="form-control" placeholder="Buscar producto…">
+            </div>
+            <div class="col-8 col-md-4">
+                <select class="form-select">
+                    <option selected>Todos los tipos</option>
+                    <option value="omnivoro">Omnívoro</option>
+                    <option value="pescetariano">Pescetariano</option>
+                    <option value="vegetariano">Vegetariano</option>
+                </select>
+            </div>
+            <div class="col-4 col-md-2 d-grid">
+                <button class="btn btn-primary">Filtrar</button>
+            </div>
+        </div>
+    </section>
 
-  <!--Catalogo de productos-->
-  <main class="container mb-5">
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-      <div class="col">
-        <div class="card h-100 text-center">
-          <img src="img/paella.jpg" class="card-img-top" alt="Paella">
-          <div class="card-body">
-            <h5 class="card-title">Paella</h5>
-            <p class="card-text">Arroz con azafrán y mariscos típico de Valencia.</p>
-            <p class="fw-bold">$20.000 - $40.000</p>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card h-100 text-center">
-          <img src="img/moussaka.jpg" class="card-img-top" alt="Moussaka">
-          <div class="card-body">
-            <h5 class="card-title">Moussaka</h5>
-            <p class="card-text">Pastel horneado de origen griego con berenjenas y especias.</p>
-            <p class="fw-bold">$8.000 - $15.000</p>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card h-100 text-center">
-          <img src="img/tabule.jpg" class="card-img-top" alt="Tabulé">
-          <div class="card-body">
-            <h5 class="card-title">Tabulé</h5>
-            <p class="card-text">Ensalada fría de la cocina libanesa.</p>
-            <p class="fw-bold">$6.000 - $10.000</p>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card h-100 text-center">
-          <img src="img/bouillabaisse.jpg" class="card-img-top" alt="Bouillabaisse">
-          <div class="card-body">
-            <h5 class="card-title">Bouillabaisse</h5>
-            <p class="card-text">Sopa de pescado originaria de Marsella, Francia.</p>
-            <p class="fw-bold">$28.000 - $50.000</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </main>
+    <main class="container mb-5">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            <div class="col">
+                <div class="card h-100 text-center">
+                    <img src="img/paella_cam.jpg" class="card-img-top" alt="Paella">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <span class="card-title-link" data-bs-toggle="modal" data-bs-target="#paellaModal">Paella</span>
+                        </h5>
+                        <p class="card-text">Arroz con azafrán y mariscos típico de Valencia.</p>
+                        <p class="fw-bold">$20.000 - $40.000</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 text-center">
+                    <img src="img/moussaka.jpeg" class="card-img-top" alt="Moussaka">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <span class="card-title-link" data-bs-toggle="modal" data-bs-target="#moussakaModal">Moussaka</span>
+                        </h5>
+                        <p class="card-text">Pastel horneado de origen griego con berenjenas y especias.</p>
+                        <p class="fw-bold">$8.000 - $15.000</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 text-center">
+                    <img src="img/tabule.jpg" class="card-img-top" alt="Tabulé">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <span class="card-title-link" data-bs-toggle="modal" data-bs-target="#tabuleModal">Tabulé</span>
+                        </h5>
+                        <p class="card-text">Ensalada fría de la cocina libanesa.</p>
+                        <p class="fw-bold">$6.000 - $10.000</p>
+                    </div>
+                </div>
+            </div>
+    </main>
 
-  <!--Footer-->
-  <footer class="bg-dark text-white text-center p-3">
-    © 2025 Mediterraneo
-  </footer>
+    <div class="modal fade" id="paellaModal" tabindex="-1" aria-labelledby="paellaModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="paellaModalLabel">Paella</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <img src="img/paella_cam.jpg" class="img-fluid rounded mb-3" alt="Paella">
+                            <p class="fw-bold mb-1" id="paellaPriceDisplay">Precio: $20.000</p>
+                            <p class="fw-bold text-success" id="paellaStockDisplay">Stock: 15 unidades</p>
+                        </div>
+                        <div class="col-md-7">
+                            <p><strong>Descripción:</strong> Paella en un plato españolita a base de arroz, separado de la Comunidad Valenciana, que utiliza un arroz especial español (arroz bomba), cocido en un caldo hecho para profundas bases de pescado, que es lo que realmente da el plato. </p>
+                            
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Variantes</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="paellaVariant" id="paellaUnica" value="20000" data-price="20000" data-stock="15" checked>
+                                    <label class="form-check-label" for="paellaUnica">Paella Valenciana ($20.000)</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="paellaVariant" id="paellaTercio" value="30000" data-price="30000" data-stock="8">
+                                    <label class="form-check-label" for="paellaTercio">Paella de mariscos ($30.000)</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="paellaVariant" id="paellaFamiliar" value="40000" data-price="40000" data-stock="22">
+                                    <label class="form-check-label" for="paellaFamiliar">Paella mixta ($40.000)</label>
+                                </div>
+                            </div>
+                            <div class="text-end">
+                                <button class="btn btn-success">Añadir al Pedido</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal fade" id="moussakaModal" tabindex="-1" aria-labelledby="moussakaModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="moussakaModalLabel">Moussaka</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <img src="img/moussaka.jpeg" class="img-fluid rounded mb-3" alt="Moussaka">
+                            <p class="fw-bold mb-1" id="moussakaPriceDisplay">Precio: $8.000</p>
+                            <p class="fw-bold text-success" id="moussakaStockDisplay">Stock: 30 unidades</p>
+                        </div>
+                        <div class="col-md-7">
+                            <p><strong>Descripción:</strong> Una versión más clásica y ligera de este plato. La moussaka se basa en un sublime guiso de berenjenas salteadas, calabacines, carne picada de ternera y cordero, cubierta con una salsa bechamel liviana. Su preparación al horno lento con patatas y puerros recalca los sabores ahumados de la berenjena y la intensidad de la carne, para crear un bocado denso que realza el sabor a la tierra, muy sustancioso y sabroso.</p>
+                            
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Variante</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="moussakaVariant" id="moussakaGriega" value="8000" data-price="8000" data-stock="30" checked>
+                                    <label class="form-check-label" for="moussakaGriega">
+                                        Griega ($8.000)
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="moussakaVariant" id="moussakaTurca" value="15000" data-price="15000" data-stock="12">
+                                    <label class="form-check-label" for="moussakaTurca">
+                                        Turca ($15.000)
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="text-end">
+                                <button class="btn btn-success">Añadir al Pedido</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="tabuleModal" tabindex="-1" aria-labelledby="tabuleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tabuleModalLabel">Tabulé</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <img src="img/tabule.jpg" class="img-fluid rounded mb-3" alt="Tabulé">
+                            <p class="fw-bold mb-1" id="tabulePriceDisplay">Precio: $8.000</p>
+                            <p class="fw-bold text-success" id="tabuleStockDisplay">Stock: 25 unidades</p>
+                        </div>
+                        <div class="col-md-7">
+                            <p><strong>Descripción:</strong> El tabulé (también llamado tabbouleh o taboule) es una ensalada de la cocina árabe, originaria de Líbano y Siria. Es un plato fresco y vegetariano, ideal para el verano o como guarnición.</p>
+                            
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Variante</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="tabuleVariant" id="tabuleCuscus" value="8000" data-price="8000" data-stock="25" checked>
+                                    <label class="form-check-label" for="tabuleCuscus">
+                                        Cuscus ($8.000)
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="tabuleVariant" id="tabuleLentejas" value="10000" data-price="10000" data-stock="10">
+                                    <label class="form-check-label" for="tabuleLentejas">
+                                        Lentejas ($10.000)
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="text-end">
+                                <button class="btn btn-success">Añadir al Pedido</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="bg-dark text-white text-center p-3">
+        © 2025 Mediterraneo
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // FUNCIÓN ACTUALIZADA: ahora acepta 3 IDs (Modal, Precio y Stock)
+            function updateModalContent(modalId, priceDisplayId, stockDisplayId) {
+                const modal = document.getElementById(modalId);
+                if (!modal) return;
+
+                const priceDisplay = document.getElementById(priceDisplayId);
+                const stockDisplay = document.getElementById(stockDisplayId); // Nuevo
+                const radioButtons = modal.querySelectorAll('input[type="radio"]');
+
+                const updateDisplay = (radio) => {
+                    const price = radio.getAttribute('data-price');
+                    const stock = radio.getAttribute('data-stock');
+
+                    // 1. Actualizar el precio
+                    priceDisplay.textContent = `Precio: $${parseInt(price).toLocaleString('es-CL')}`; 
+
+                    // 2. Actualizar el stock
+                    stockDisplay.textContent = `Stock: ${stock} unidades`;
+                    stockDisplay.classList.remove('text-danger', 'text-success');
+                    
+                    // Lógica simple para color de stock
+                    if (parseInt(stock) <= 5) {
+                        stockDisplay.classList.add('text-danger');
+                    } else {
+                        stockDisplay.classList.add('text-success');
+                    }
+                };
+
+                radioButtons.forEach(radio => {
+                    radio.addEventListener('change', function() {
+                        if (this.checked) {
+                            updateDisplay(this);
+                        }
+                    });
+                });
+
+                // Inicializar la visualización con la opción "checked" por defecto
+                const checkedRadio = modal.querySelector('input[type="radio"]:checked');
+                if (checkedRadio) {
+                    updateDisplay(checkedRadio);
+                }
+            }
+
+            // Aplicar la función a todos los modales con variantes, ¡pasando el ID del stock!
+            updateModalContent('paellaModal', 'paellaPriceDisplay', 'paellaStockDisplay');
+            updateModalContent('moussakaModal', 'moussakaPriceDisplay', 'moussakaStockDisplay');
+            updateModalContent('tabuleModal', 'tabulePriceDisplay', 'tabuleStockDisplay'); 
+            // Agrega Bouillabaisse aquí si le añades variantes
+        });
+    </script>
 </body>
 </html>

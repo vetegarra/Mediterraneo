@@ -1,68 +1,204 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Administración de Usuarios</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administración de Usuarios</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        body {
+            /* Asegura que el contenido empuje el footer fijo */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            padding-bottom: 60px; 
+            background-color: #f8f9fa;
+        }
+        main {
+            flex: 1;
+        }
+        footer {
+            position: fixed; 
+            bottom: 0; 
+            width: 100%;
+        }
+        /* Estilos para las tarjetas de usuario en el modo de eliminación/modificación */
+        .user-card {
+            border: 1px solid #ddd;
+            border-radius: 0.5rem;
+            padding: 10px;
+            text-align: center;
+        }
+        .user-icon {
+            /* Simula la imagen del usuario con el icono de persona */
+            font-size: 3rem; 
+            color: #0d6efd; /* Color azul primario de Bootstrap */
+            margin-bottom: 5px;
+        }
+    </style>
 </head>
 <body>
 
-<div class="container py-4">
-
-  <!--Row principal-->
-  <div class="row g-4">
-
-    <!--Columna formulario de usuario-->
-    <div class="col-md-6">
-      <div class="card h-100">
-        <div class="card-body d-flex flex-column">
-          <h3 class="card-title mb-3">Agregar / Modificar Usuario</h3>
-          <!--Entradas-->
-          <input type="email" class="form-control mb-2" placeholder="Correo electrónico">
-          <input type="text" class="form-control mb-2" placeholder="Rol (Administrador / Usuario)">
-          <input type="password" class="form-control mb-3" placeholder="Contraseña">
-          <div class="d-flex gap-2">
-            <button class="btn btn-primary flex-grow-1">Agregar / Guardar</button>
-            <button class="btn btn-danger flex-grow-1">Eliminar</button>
-          </div>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="inicio.html">𝙼𝚎𝚍𝚒𝚝𝚎𝚛𝚛𝚊𝚗𝚎𝚘</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar" aria-controls="collapsibleNavbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="catalogo.html">Catálogo</a></li>
+                <li class="nav-item"><a class="nav-link" href="sobre_nosotros.html">Acerca de nosotros</a></li>
+            </ul>
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item me-3"> 
+                    <a class="nav-link" href="pedido_online.html" title="Ver Pedido">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+                            <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.485-.379L1.71 5.438a.5.5 0 0 1-.485-.379L.105 1.562A.5.5 0 0 1 0 1.5zm1.115 3.5h12.77L13 5H3.19zM4 14a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm10 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                        </svg>
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Tu cuenta</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="inicio_sesion.html">Iniciar sesión</a></li>
+                        <li><a class="dropdown-item" href="registro.html">Regístrate</a></li>
+                    </ul>
+                </li>
+            </ul>
         </div>
-      </div>
     </div>
+</nav>
 
-    <!--Columna listdo de usuarios y mensajes-->
-    <div class="col-md-6 d-flex flex-column">
-      <div class="card h-100">
-        <div class="card-body d-flex flex-column">
-          <h3 class="card-title mb-3">Usuarios Registrados</h3>
-          <!--Listado de usuarios-->
-          <div class="list-group flex-grow-1 mb-3">
-            <div class="list-group-item d-flex justify-content-between align-items-center">
-              juanperez@example.com
-              <span class="badge bg-secondary">Administrador</span>
+<main class="container my-5">
+    <h1 class="mb-4">Administración de Usuarios</h1>
+
+    <ul class="nav nav-tabs" id="adminTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="add-tab" data-bs-toggle="tab" data-bs-target="#addUser" type="button" role="tab" aria-controls="addUser" aria-selected="true">Agregar usuario</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="modify-tab" data-bs-toggle="tab" data-bs-target="#modifyUser" type="button" role="tab" aria-controls="modifyUser" aria-selected="false">Eliminar / Modificar usuarios</button>
+        </li>
+    </ul>
+
+    <div class="tab-content border border-top-0 p-3 bg-white shadow-sm">
+        
+        <div class="tab-pane fade show active" id="addUser" role="tabpanel" aria-labelledby="add-tab">
+            
+            <h3 class="mb-3">Registro y Modificación de Cuentas</h3>
+            <div class="row g-3">
+                
+                <div class="col-lg-6">
+                    <input type="text" class="form-control" placeholder="ID. EJ: 123" aria-label="ID del usuario">
+                </div>
+                <div class="col-lg-6">
+                    <input type="email" class="form-control" placeholder="Email. EJ: usuario@correo.cl" aria-label="Correo electrónico">
+                </div>
+                <div class="col-lg-6">
+                    <input type="password" class="form-control" placeholder="Contraseña" aria-label="Contraseña">
+                </div>
+
+                <div class="col-lg-6">
+                    <select class="form-select" aria-label="Tipo de usuario">
+                        <option selected>Tipo de usuario</option>
+                        <option value="1">Cliente</option>
+                        <option value="2">Administrador</option>
+                        <option value="3">Delivery</option>
+                        <option value="4">Cocina</option>
+                    </select>
+                </div>
+
+                <div class="col-12">
+                    <label for="userInfo" class="form-label">Información personal</label>
+                    <textarea class="form-control" id="userInfo" rows="3" placeholder="Ej: Nombre, dirección, teléfono..."></textarea>
+                </div>
+                
+                <div class="col-12 mt-4">
+                    <button class="btn btn-primary btn-lg me-2">Agregar usuario</button>
+                    </div>
             </div>
-            <div class="list-group-item d-flex justify-content-between align-items-center">
-              mariarodriguez@example.com
-              <span class="badge bg-secondary">Usuario</span>
-            </div>
-          </div>
-          <!--Mensajes de confirmacion-->
-          <div class="alert alert-success d-none" role="alert">
-            Usuario creado exitosamente.
-          </div>
-          <div class="alert alert-info d-none" role="alert">
-            Usuario actualizado.
-          </div>
-          <div class="alert alert-danger d-none" role="alert">
-            Usuario eliminado.
-          </div>
+            
         </div>
-      </div>
+
+        <div class="tab-pane fade" id="modifyUser" role="tabpanel" aria-labelledby="modify-tab">
+            <h3 class="mb-4">Usuarios Registrados</h3>
+
+            <div class="row row-cols-2 row-cols-md-4 row-cols-lg-6 g-3">
+                
+                <div class="col">
+                    <div class="user-card">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person user-icon" viewBox="0 0 16 16">
+                          <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.282 10 8 10c-2.28 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664z"/>
+                        </svg>
+                        <p class="mb-1 fw-bold">Nombre Completo</p>
+                        <button class="btn btn-sm btn-info w-100 mb-1">Modificar</button>
+                        <button class="btn btn-sm btn-danger w-100">Eliminar</button>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="user-card">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person user-icon" viewBox="0 0 16 16">
+                          <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.282 10 8 10c-2.28 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664z"/>
+                        </svg>
+                        <p class="mb-1 fw-bold">Nombre Completo</p>
+                        <button class="btn btn-sm btn-info w-100 mb-1">Modificar</button>
+                        <button class="btn btn-sm btn-danger w-100">Eliminar</button>
+                    </div>
+                </div>
+                
+                <div class="col">
+                    <div class="user-card">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person user-icon" viewBox="0 0 16 16">
+                          <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.282 10 8 10c-2.28 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664z"/>
+                        </svg>
+                        <p class="mb-1 fw-bold">Nombre Completo</p>
+                        <button class="btn btn-sm btn-info w-100 mb-1">Modificar</button>
+                        <button class="btn btn-sm btn-danger w-100">Eliminar</button>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="user-card">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person user-icon" viewBox="0 0 16 16">
+                          <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.282 10 8 10c-2.28 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664z"/>
+                        </svg>
+                        <p class="mb-1 fw-bold">Nombre Completo</p>
+                        <button class="btn btn-sm btn-info w-100 mb-1">Modificar</button>
+                        <button class="btn btn-sm btn-danger w-100">Eliminar</button>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="user-card">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person user-icon" viewBox="0 0 16 16">
+                          <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.282 10 8 10c-2.28 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664z"/>
+                        </svg>
+                        <p class="mb-1 fw-bold">Nombre Completo</p>
+                        <button class="btn btn-sm btn-info w-100 mb-1">Modificar</button>
+                        <button class="btn btn-sm btn-danger w-100">Eliminar</button>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="user-card">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person user-icon" viewBox="0 0 16 16">
+                          <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.282 10 8 10c-2.28 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664z"/>
+                        </svg>
+                        <p class="mb-1 fw-bold">Nombre Completo</p>
+                        <button class="btn btn-sm btn-info w-100 mb-1">Modificar</button>
+                        <button class="btn btn-sm btn-danger w-100">Eliminar</button>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
     </div>
+</main>
 
-  </div>
+<footer class="bg-dark text-white text-center p-3">
+    © 2025 Mediterraneo
+</footer>
 
-</div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
