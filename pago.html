@@ -13,11 +13,21 @@
             border-color: var(--bs-primary);
             box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.5); /* Sombra azul */
         }
+        /* Ajuste para que el navbar no oculte el contenido */
+        body {
+            padding-top: 56px;
+        }
+        .navbar-dark {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1030;
+        }
     </style>
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark" data-bs-theme="dark">
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top" data-bs-theme="dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="inicio.html">𝙼𝚎𝚍𝚒𝚝𝚎𝚛𝚛𝚊𝚗𝚎𝚘</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar" aria-controls="collapsibleNavbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,6 +58,7 @@
         </div>
     </nav>
     <div class="container py-4">
+        <h1 class="mb-4">Pasarela de Pago</h1>
         
         <div class="row g-4">
             
@@ -66,7 +77,7 @@
                         <hr>
                         <div class="d-flex justify-content-between fw-bold fs-5">
                             <span>Total a Pagar</span>
-                            <span id="totalDisplay">$85.000</span>
+                            <span id="totalDisplay" class="text-success">$85.000</span>
                         </div>
                     </div>
                 </div>
@@ -79,7 +90,7 @@
 
                         <div class="mb-3 d-flex flex-column gap-2" id="paymentMethods">
                             <button class="btn btn-outline-primary selected" data-method="Webpay">Webpay</button>
-                            <button class="btn btn-outline-primary" data-method="Visa">Visa</button>
+                            <button class="btn btn-outline-primary" data-method="Visa">Visa / MasterCard</button>
                             <button class="btn btn-outline-primary" data-method="MercadoPago">MercadoPago</button>
                             <button class="btn btn-outline-primary" data-method="PayPal">PayPal</button>
                         </div>
@@ -93,10 +104,7 @@
         <div class="row mt-4">
             <div class="col-12">
                 <div class="alert alert-success d-none" role="alert" id="successAlert">
-                    <h4 class="alert-heading">¡Pago Exitoso!</h4>
-                    <p>El pago fue procesado correctamente con <span id="paymentMethodResult" class="fw-bold">Webpay</span>. Comprobante generado.</p>
-                    <hr>
-                    <a href="catalogo.html" class="alert-link">Volver al catálogo</a>
+                    <h4 class="alert-heading">¡Pago Exitoso! Redirigiendo...</h4>
                 </div>
                 
                 <div class="alert alert-danger d-none" role="alert" id="dangerAlert">
@@ -114,10 +122,12 @@
         const payButton = document.getElementById('payButton');
         const successAlert = document.getElementById('successAlert');
         const dangerAlert = document.getElementById('dangerAlert');
-        const paymentMethodResult = document.getElementById('paymentMethodResult');
+        
+        // La URL de destino para el seguimiento del despacho
+        const DESPACHO_URL = "checkout_despacho.html?status=paid";
         
         // 1. Lógica para seleccionar solo un método de pago
-        let selectedMethod = 'Webpay'; // Método preseleccionado
+        let selectedMethod = 'Webpay'; 
         
         paymentMethodsContainer.addEventListener('click', function(e) {
             if (e.target.classList.contains('btn-outline-primary')) {
@@ -135,28 +145,37 @@
             }
         });
 
-        // 2. Lógica para simular el pago
+        // 2. Lógica para simular el pago y redirigir
         payButton.addEventListener('click', function() {
             // Ocultar mensajes anteriores
             successAlert.classList.add('d-none');
             dangerAlert.classList.add('d-none');
+            
+            // Deshabilitar el botón para evitar clics múltiples
+            payButton.disabled = true;
 
             // Simulación: 70% de probabilidad de éxito
             const isSuccessful = Math.random() < 0.7; 
 
             if (isSuccessful) {
-                // Pago exitoso
-                paymentMethodResult.textContent = selectedMethod;
+                // **PAGO EXITOSO: REDIRECCIÓN**
                 successAlert.classList.remove('d-none');
+                
+                // Esperar un momento antes de redirigir para que el usuario vea la alerta
+                setTimeout(() => {
+                    window.location.href = DESPACHO_URL;
+                }, 2000); // Redirige después de 2 segundos (2000 ms)
+
             } else {
                 // Pago rechazado
                 dangerAlert.classList.remove('d-none');
-            }
+                payButton.disabled = false; // Habilitar de nuevo para reintento
 
-            // Mover la vista a la sección de mensajes
-            setTimeout(() => {
-                document.querySelector('.row.mt-4').scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 100);
+                // Mover la vista a la sección de mensajes
+                setTimeout(() => {
+                    dangerAlert.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+            }
         });
     });
 </script>
