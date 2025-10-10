@@ -9,7 +9,6 @@
 
     <style>
         body {
-            /* Asegura que el contenido empuje el footer fijo */
             display: flex;
             flex-direction: column;
             min-height: 100vh;
@@ -24,7 +23,6 @@
             bottom: 0; 
             width: 100%;
         }
-        /* Estilos para las tarjetas de producto en el modo de eliminación/modificación */
         .product-card {
             border: 1px solid #ddd;
             border-radius: 0.5rem;
@@ -85,12 +83,10 @@
     </ul>
 
     <div class="tab-content border border-top-0 p-3 bg-white shadow-sm">
-        
+        <!-- Agregar Producto -->
         <div class="tab-pane fade show active" id="addProduct" role="tabpanel" aria-labelledby="add-tab">
-            
             <h3 class="mb-3">Agregar nuevo producto</h3>
             <div class="row g-3">
-                
                 <div class="col-lg-6">
                     <input type="text" class="form-control" placeholder="ID. EJ: PD1" aria-label="ID del producto">
                 </div>
@@ -99,12 +95,15 @@
                     <input type="text" class="form-control" placeholder="Nombre. EJ: Paella de camarón" aria-label="Nombre del producto">
                 </div>
 
+                <!-- Tipo dinámico -->
                 <div class="col-lg-6">
-                    <select class="form-select" aria-label="Tipo de producto">
-                        <option selected>Tipo</option>
-                        <option value="1">Común</option>
-                        <option value="2">Pescetariana</option>
-                        <option value="3">Vegetariana</option>
+                    <label for="productType" class="form-label">Tipo de producto</label>
+                    <div class="input-group mb-2">
+                        <input type="text" class="form-control" id="newTypeInput" placeholder="Agregar nueva variante">
+                        <button class="btn btn-outline-secondary" type="button" id="addTypeBtn">Agregar</button>
+                    </div>
+                    <select class="form-select" id="productType">
+                        <option selected disabled>Selecciona un tipo</option>
                     </select>
                 </div>
                 
@@ -119,16 +118,15 @@
 
                 <div class="col-12 mt-4">
                     <button class="btn btn-primary btn-lg me-2">Agregar plato</button>
-                    </div>
+                </div>
             </div>
-            
         </div>
 
+        <!-- Modificar / Eliminar -->
         <div class="tab-pane fade" id="modifyProduct" role="tabpanel" aria-labelledby="modify-tab">
             <h3 class="mb-4">Catálogo de productos</h3>
-
             <div class="row row-cols-2 row-cols-md-4 row-cols-lg-6 g-3">
-                
+                <!-- Producto de ejemplo -->
                 <div class="col">
                     <div class="product-card">
                         <img src="img/ejemplo1.jpg" class="product-card-img rounded" alt="Plato 1">
@@ -137,7 +135,6 @@
                         <button class="btn btn-sm btn-danger w-100">Eliminar</button>
                     </div>
                 </div>
-
                 <div class="col">
                     <div class="product-card">
                         <img src="img/ejemplo2.jpg" class="product-card-img rounded" alt="Plato 2">
@@ -146,40 +143,7 @@
                         <button class="btn btn-sm btn-danger w-100">Eliminar</button>
                     </div>
                 </div>
-
-                <div class="col">
-                    <div class="product-card">
-                        <img src="img/ejemplo3.jpg" class="product-card-img rounded" alt="Plato 3">
-                        <p class="mb-1 fw-bold">Nombre de plato ID</p>
-                        <button class="btn btn-sm btn-info w-100 mb-1">Modificar</button>
-                        <button class="btn btn-sm btn-danger w-100">Eliminar</button>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="product-card">
-                        <img src="img/ejemplo4.jpg" class="product-card-img rounded" alt="Plato 4">
-                        <p class="mb-1 fw-bold">Nombre de plato ID</p>
-                        <button class="btn btn-sm btn-info w-100 mb-1">Modificar</button>
-                        <button class="btn btn-sm btn-danger w-100">Eliminar</button>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="product-card">
-                        <img src="img/ejemplo5.jpg" class="product-card-img rounded" alt="Plato 5">
-                        <p class="mb-1 fw-bold">Nombre de plato ID</p>
-                        <button class="btn btn-sm btn-info w-100 mb-1">Modificar</button>
-                        <button class="btn btn-sm btn-danger w-100">Eliminar</button>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="product-card">
-                        <img src="img/ejemplo6.jpg" class="product-card-img rounded" alt="Plato 6">
-                        <p class="mb-1 fw-bold">Nombre de plato ID</p>
-                        <button class="btn btn-sm btn-info w-100 mb-1">Modificar</button>
-                        <button class="btn btn-sm btn-danger w-100">Eliminar</button>
-                    </div>
-                </div>
-                
+                <!-- Puedes duplicar para más productos -->
             </div>
         </div>
     </div>
@@ -188,6 +152,31 @@
 <footer class="bg-dark text-white text-center p-3">
     © 2025 Mediterraneo
 </footer>
+
+<script>
+    const addTypeBtn = document.getElementById('addTypeBtn');
+    const newTypeInput = document.getElementById('newTypeInput');
+    const productTypeSelect = document.getElementById('productType');
+
+    addTypeBtn.addEventListener('click', () => {
+        const value = newTypeInput.value.trim();
+        if (value) {
+            const option = document.createElement('option');
+            option.value = value.toLowerCase().replace(/\s+/g, '_');
+            option.textContent = value;
+            productTypeSelect.appendChild(option);
+            productTypeSelect.value = option.value;
+            newTypeInput.value = '';
+        }
+    });
+
+    newTypeInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            addTypeBtn.click();
+            e.preventDefault();
+        }
+    });
+</script>
 
 </body>
 </html>
