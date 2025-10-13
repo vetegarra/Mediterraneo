@@ -39,6 +39,7 @@
 </head>
 <body>
 
+<!-- NAVBAR -->
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="inicio.html">𝙼𝚎𝚍𝚒𝚝𝚎𝚛𝚛𝚊𝚗𝚎𝚘</a>
@@ -70,6 +71,7 @@
     </div>
 </nav>
 
+<!-- CONTENIDO PRINCIPAL -->
 <main class="container my-5">
     <h1 class="mb-4">Administración de Productos</h1>
 
@@ -83,98 +85,103 @@
     </ul>
 
     <div class="tab-content border border-top-0 p-3 bg-white shadow-sm">
-        <!-- Agregar Producto -->
+
+        <!-- 🟢 AGREGAR PRODUCTO -->
         <div class="tab-pane fade show active" id="addProduct" role="tabpanel" aria-labelledby="add-tab">
             <h3 class="mb-3">Agregar nuevo producto</h3>
             <div class="row g-3">
+
                 <div class="col-lg-6">
-                    <input type="text" class="form-control" placeholder="ID. EJ: PD1" aria-label="ID del producto">
+                    <input type="text" class="form-control" placeholder="ID. Ej: PD1" aria-label="ID del producto">
                 </div>
-                
                 <div class="col-lg-6">
-                    <input type="text" class="form-control" placeholder="Nombre. EJ: Paella de camarón" aria-label="Nombre del producto">
+                    <input type="text" class="form-control" placeholder="Nombre. Ej: Paella Mediterránea" aria-label="Nombre del producto">
                 </div>
 
-                <!-- Tipo dinámico -->
-                <div class="col-lg-6">
-                    <label for="productType" class="form-label">Tipo de producto</label>
-                    <div class="input-group mb-2">
-                        <input type="text" class="form-control" id="newTypeInput" placeholder="Agregar nueva variante">
-                        <button class="btn btn-outline-secondary" type="button" id="addTypeBtn">Agregar</button>
-                    </div>
-                    <select class="form-select" id="productType">
-                        <option selected disabled>Selecciona un tipo</option>
-                    </select>
-                </div>
-                
                 <div class="col-12">
                     <label for="productDescription" class="form-label">Descripción del plato</label>
-                    <textarea class="form-control" id="productDescription" rows="3"></textarea>
+                    <textarea class="form-control" id="productDescription" rows="3" placeholder="Describe el producto..."></textarea>
                 </div>
-                
-                <div class="col-lg-6">
-                    <input type="number" class="form-control" placeholder="Stock del plato" aria-label="Stock del producto">
+
+                <!-- VARIANTES CON NOMBRE, PRECIO Y STOCK -->
+                <div class="col-12">
+                    <label class="form-label">Variantes del producto</label>
+                    <div id="variantList" class="mb-3"></div>
+                    <div class="input-group mb-2">
+                        <input type="text" class="form-control" id="variantNameInput" placeholder="Nombre variante (Ej: Porción individual)">
+                        <input type="number" class="form-control" id="variantPriceInput" placeholder="Precio (Ej: 4500)" min="0" step="100">
+                        <input type="number" class="form-control" id="variantStockInput" placeholder="Stock (Ej: 15)" min="0">
+                        <button class="btn btn-outline-primary" type="button" id="addVariantBtn">Agregar</button>
+                    </div>
                 </div>
 
                 <div class="col-12 mt-4">
-                    <button class="btn btn-primary btn-lg me-2">Agregar plato</button>
+                    <button class="btn btn-primary btn-lg me-2">Guardar producto</button>
                 </div>
             </div>
         </div>
 
-        <!-- Modificar / Eliminar -->
+        <!-- 🔵 MODIFICAR / ELIMINAR -->
         <div class="tab-pane fade" id="modifyProduct" role="tabpanel" aria-labelledby="modify-tab">
             <h3 class="mb-4">Catálogo de productos</h3>
             <div class="row row-cols-2 row-cols-md-4 row-cols-lg-6 g-3">
-                <!-- Producto de ejemplo -->
                 <div class="col">
                     <div class="product-card">
                         <img src="img/ejemplo1.jpg" class="product-card-img rounded" alt="Plato 1">
-                        <p class="mb-1 fw-bold">Nombre de plato ID</p>
+                        <p class="mb-1 fw-bold">Paella Mediterránea</p>
                         <button class="btn btn-sm btn-info w-100 mb-1">Modificar</button>
                         <button class="btn btn-sm btn-danger w-100">Eliminar</button>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="product-card">
-                        <img src="img/ejemplo2.jpg" class="product-card-img rounded" alt="Plato 2">
-                        <p class="mb-1 fw-bold">Nombre de plato ID</p>
-                        <button class="btn btn-sm btn-info w-100 mb-1">Modificar</button>
-                        <button class="btn btn-sm btn-danger w-100">Eliminar</button>
-                    </div>
-                </div>
-                <!-- Puedes duplicar para más productos -->
             </div>
         </div>
     </div>
 </main>
 
+<!-- FOOTER -->
 <footer class="bg-dark text-white text-center p-3">
     © 2025 Mediterraneo
 </footer>
 
 <script>
-    const addTypeBtn = document.getElementById('addTypeBtn');
-    const newTypeInput = document.getElementById('newTypeInput');
-    const productTypeSelect = document.getElementById('productType');
+    const variantList = document.getElementById('variantList');
+    const addVariantBtn = document.getElementById('addVariantBtn');
+    const variantNameInput = document.getElementById('variantNameInput');
+    const variantPriceInput = document.getElementById('variantPriceInput');
+    const variantStockInput = document.getElementById('variantStockInput');
 
-    addTypeBtn.addEventListener('click', () => {
-        const value = newTypeInput.value.trim();
-        if (value) {
-            const option = document.createElement('option');
-            option.value = value.toLowerCase().replace(/\s+/g, '_');
-            option.textContent = value;
-            productTypeSelect.appendChild(option);
-            productTypeSelect.value = option.value;
-            newTypeInput.value = '';
+    addVariantBtn.addEventListener('click', () => {
+        const name = variantNameInput.value.trim();
+        const price = parseFloat(variantPriceInput.value);
+        const stock = parseInt(variantStockInput.value);
+
+        if (name && !isNaN(price) && price >= 0 && !isNaN(stock) && stock >= 0) {
+            const div = document.createElement('div');
+            div.classList.add('d-flex', 'justify-content-between', 'align-items-center', 'border', 'p-2', 'rounded', 'mb-2');
+            div.innerHTML = `
+                <span><strong>${name}</strong> — Precio: $${price.toLocaleString()} — Stock: ${stock}</span>
+                <button class="btn btn-sm btn-danger remove-variant">Eliminar</button>
+                <input type="hidden" name="variants[]" value="${name}|${price}|${stock}">
+            `;
+            variantList.appendChild(div);
+
+            variantNameInput.value = '';
+            variantPriceInput.value = '';
+            variantStockInput.value = '';
+
+            div.querySelector('.remove-variant').addEventListener('click', () => div.remove());
+        } else {
+            alert('Por favor ingresa nombre, precio y stock válidos.');
         }
     });
 
-    newTypeInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            addTypeBtn.click();
-            e.preventDefault();
-        }
+    [variantNameInput, variantPriceInput, variantStockInput].forEach(input => {
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                addVariantBtn.click();
+                e.preventDefault();
+            }
+        });
     });
 </script>
 
